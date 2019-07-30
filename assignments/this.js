@@ -1,33 +1,34 @@
-console.log(this.document === document); // Output
+console.log(this.document === document); // true
 
-console.log(this === window); //Output
+
+console.log(this === window); // true
 
 var myFunction = function() {
   console.log(this);
 };
-myFunction(); // Output
+myFunction(); // window
 
 function f1() {
   "use strict";
   return this;
 }
-console.log(f1() === window); //Output
+console.log(f1() === window); // Undefined
 
 function foo() {
   console.log("Simple function call");
   console.log(this === window);
 }
 
-foo(); //Output ??
+foo(); //Output ?? Simple Function Call
 console.log(this === window)(
-  // Output
+  // true
 
   // This for IIFE
   function() {
     console.log("Anonymous function invocation");
     console.log(this === window);
   }
-)(); //Output
+)(); // SyntaxError
 
 // This for IIFE in strict mode
 function foo() {
@@ -36,7 +37,8 @@ function foo() {
   console.log(this === window);
 }
 
-foo(); // Output
+foo(); // Simple Function Call; window;
+
 
 var myObject = {};
 myObject.someMethod = function() {
@@ -56,9 +58,9 @@ function Person(fn, ln) {
 }
 
 let person = new Person("John", "Reed");
-person.displayName(); // Output
+person.displayName(); // John Reed
 let person2 = new Person("Paul", "Adams");
-person2.displayName(); // Output
+person2.displayName(); // Paul Adamsn
 
 //This refers to the invoker Object
 function foo() {
@@ -75,10 +77,10 @@ let user = {
   }
 };
 
-user.foo(); // Output
+user.foo(); // Simple Funtion Call; False
 let fun1 = user.foo1;
-fun1(); // Output ??
-user.foo1(); // Output ??
+fun1(); // true
+user.foo1(); // false
 
 //this will call apply and bind
 
@@ -90,13 +92,13 @@ var module = {
   }
 };
 
-module.getX(); // Output ??
+module.getX(); // 81
 
 var retrieveX = module.getX;
-retrieveX(); //Output ??
+retrieveX(); // 9
 
 var boundGetX = retrieveX.bind(module);
-boundGetX(); // Output ??
+boundGetX(); // 81
 
 // Call with new constructor
 
@@ -110,11 +112,11 @@ function Person(fn, ln) {
 }
 
 let person = new Person("John", "Reed");
-person.displayName(); // Output
+person.displayName(); // John Reed
 let person2 = new Person("Paul", "Adams");
-person2.displayName(); // Output
+person2.displayName(); // Paul Adams
 
-person.displayName.call(person2); // Output ??
+person.displayName.call(person2); // Paul Adams
 
 // Guess the output of the following
 
